@@ -6,7 +6,7 @@ import requests
 from threading import Thread
 import argparse
 
-from status import locations
+from status import aliases, locations
 from tokens import tokens
 
 status_str = '{"status_text":{text},"status_emoji":{token}}'
@@ -31,6 +31,13 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
         status_dict = locations[location]
 
+        # check aliases and insert new entry as needed
+        for k,v in aliases.items():
+            # if that alias is in our status dict
+            if v in status_dict.keys():
+                # add a new entry identical to it's alias entry
+                status_dict[k] = status_dict[v]
+
         self.wfile.write(status_dict)
 
         for k,v in status_dict.items():
@@ -38,11 +45,9 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             emoji = v[0]
             status = v[1]
 
-            print((token,k,v))
             url_str = base_url.format(token=token)
             url_str += '&profile={"status_text":"' + status + '",'
             url_str += '"status_emoji":":' + emoji + ':"}'
-            print(url_str)
             requests.get(url_str, verify=False)
 
 def main():
