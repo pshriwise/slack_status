@@ -23,9 +23,11 @@ the aliases dictionary. The account name with existing entries in the
 `locations` structure should be the value. The account mimicing the
 existing account statuses should be the key.
 
+```python
 aliases = { 'account1_name' : 'account0_name' }
+```
 
-The server will read this as: "Treat acccount1 as if it were account0".
+The server will read this as: "Treat `acccount1` as if it were `account0`".
 
 Tokens
 ------
@@ -34,15 +36,19 @@ Tokens for any account in the `locations` or `alias` dictionaries
 should be provided in this file. The file should contain a dictionary
 named `tokens` formatted like so: 
 
-    tokens = { 'account0_name' : TOKEN,
-               'account1_name' : TOKEN }
+```python
+tokens = { 'account0_name' : TOKEN,
+           'account1_name' : TOKEN }
+```
 
 Serving
 -------
 
 To start the server one can run
 
-    python server.py
+```shell
+python server.py
+```
 
 which will start a server on port 8000 of the default IP address for
 the machine in use.
@@ -55,4 +61,6 @@ Setting Statuses
 
 A status can be set by sending a GET request to a url with the format: 
 
-    https://<server_ip_address>/<location_name>
+```
+https://<server_ip_address>/<location_name>
+```
