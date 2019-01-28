@@ -13,7 +13,7 @@ location should have a dictionary with slack accounts as keys and a
 status tuple (`emoji_name`,`status_text`) as the values. 
 
 Every should then be added to the locations dictionary, which is used
-by the server to identify and set location statuses. 
+by the server to identify and set location statuses.
 
 ### Aliases
 
@@ -22,6 +22,10 @@ entry can be provided in the `status.py` file as a key-value pair in
 the aliases dictionary. The account name with existing entries in the
 `locations` structure should be the value. The account mimicing the
 existing account statuses should be the key.
+
+aliases = { 'account1_name' : 'account0_name' }
+
+The server will read this as: "Treat acccount1 as if it were account0".
 
 Tokens
 ------

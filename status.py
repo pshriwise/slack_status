@@ -24,5 +24,4 @@ locations = { "argonne_office"  : argonne_office_status_dict,
               "home"            : home_status_dict,
               "lakeside_coffee" : lakeside_coffee_status_dict }
               
-
-aliases = {'exasmr' : 'openmc'}
+aliases = {'exasmr' : 'openmc', 'uw-ne' : 'cnerg' }
