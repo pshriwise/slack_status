@@ -29,7 +29,10 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         if location == "favicon.ico":
             return
 
-        status_dict = locations[location]
+        try:
+            status_dict = locations[location]
+        except:
+            print("Failed to find {} in location dicionary.".format(location))
 
         # check aliases and insert new entry as needed
         for k,v in aliases.items():

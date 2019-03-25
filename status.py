@@ -17,11 +17,16 @@ home_status_dict = { "cnerg"  : ('house', "at home"),
 lakeside_coffee_status_dict = { "cnerg" : ('coffee', "lakeside coffee"),
                                 "openmc" :('uw', "in Madison") }
 
+uchicago_status_dict = {"cnerg" : ('uchicago', "C++/Python"),
+            "openmc" : ('uchicago', "C++/Python")}
+
+
 locations = { "argonne_office"  : argonne_office_status_dict,
               "uw_nat"          : uw_nat_status_dict,
               "uw_office"       : uw_office_status_dict,
               "mbg"             : mbg_status_dict,
               "home"            : home_status_dict,
-              "lakeside_coffee" : lakeside_coffee_status_dict }
+              "lakeside_coffee" : lakeside_coffee_status_dict,
+              "uchicago"        : uchicago_status_dict }
               
-aliases = {'exasmr' : 'openmc', 'uw-ne' : 'cnerg' }
+aliases = {'exasmr' : 'openmc', 'uw-ne' : 'cnerg', "mpcs-python-s19" : "openmc" }
