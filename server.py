@@ -1,7 +1,7 @@
 
-import SimpleHTTPServer
-import SocketServer
-import urllib2
+import http.server
+import socketserver
+import urllib.request, urllib.error, urllib.parse
 import requests
 from threading import Thread
 import argparse
@@ -13,7 +13,7 @@ status_str = '{"status_text":{text},"status_emoji":{token}}'
 
 base_url = 'https://slack.com/api/users.profile.set?token={token}'
 
-class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class Handler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         self.send_response(200)
@@ -32,18 +32,18 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         try:
             status_dict = locations[location]
         except:
-            print("Failed to find {} in location dicionary.".format(location))
+            print(("Failed to find {} in location dicionary.".format(location)))
 
         # check aliases and insert new entry as needed
-        for k,v in aliases.items():
+        for k,v in list(aliases.items()):
             # if that alias is in our status dict
-            if v in status_dict.keys():
+            if v in list(status_dict.keys()):
                 # add a new entry identical to it's alias entry
                 status_dict[k] = status_dict[v]
 
-        self.wfile.write(status_dict)
+        self.wfile.write(bytes(str(status_dict), "UTF-8"))
 
-        for k,v in status_dict.items():
+        for k,v in list(status_dict.items()):
             token = tokens[k]
             emoji = v[0]
             status = v[1]
@@ -65,7 +65,8 @@ def main():
     args = parser.parse_args()
 
     try:
-        server = SocketServer.ThreadingTCPServer((args.IP, args.PORT), Handler)
+        socketserver.ThreadingTCPServer.allow_reuse_address = True
+        server = socketserver.ThreadingTCPServer((args.IP, args.PORT), Handler)
         server.request_queue_size = 100
         server.serve_forever()
     except KeyboardInterrupt:
